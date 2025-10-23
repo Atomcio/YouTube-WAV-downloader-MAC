@@ -1,0 +1,10 @@
+# YTWAV - Minimalne zależności
+# YouTube audio downloader requirements
+
+# Główna biblioteka do pobierania z YouTube
+yt-dlp>=2023.12.30
+
+# Uwaga: ffmpeg musi być zainstalowany systemowo
+# Windows: Pobierz z https://ffmpeg.org/download.html
+# macOS: brew install ffmpeg
+# Linux: sudo apt install ffmpeg (Ubuntu/Debian) lub sudo yum install ffmpeg (CentOS/RHEL)
