@@ -19,6 +19,16 @@ YTWAV is a lightweight macOS-only tool for downloading YouTube audio and convert
 - Homebrew
 - `ffmpeg` installed via Homebrew
 
+## Preinstallation (macOS)
+If your system is fresh and Homebrew is not installed:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+Then verify `python3` and `pip3`. If they are missing or not working, install Python:
+```bash
+brew install python
+```
+
 ## Installation
 - Clone the repository:
   ```bash

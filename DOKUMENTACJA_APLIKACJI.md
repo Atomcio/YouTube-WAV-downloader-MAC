@@ -383,8 +383,8 @@ System monitoruje i utrzymuje aplikację w optymalnym stanie.
 
 #### **Auto-maintenance (macOS)**
 ```bash
-# Automatyczny skrypt utrzymania (macOS)
-# Uruchom z katalogu projektu
+// Automatyczny skrypt utrzymania (macOS)
+// Uruchom z katalogu projektu
 python3 maintenance.py
 ```
 
@@ -931,3 +931,14 @@ python3 maintenance.py
   ```bash
   pip3 install --upgrade yt-dlp
   ```
+## 🧰 Preinstalacja (macOS)
+Jeśli system jest świeży i Homebrew nie jest zainstalowany, zainstaluj go najpierw:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+Następnie upewnij się, że `python3` i `pip3` działają. Jeśli nie:
+```bash
+brew install python
+```
+
+// ... existing code ...

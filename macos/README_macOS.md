@@ -18,6 +18,16 @@ This folder provides macOS-specific usage notes, launch scripts, and optional pa
   pip3 install -r requirements.txt
   ```
 
+## Preinstallation (macOS)
+If Homebrew is not installed yet:
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+Then ensure `python3` and `pip3` are available. If not:
+```bash
+brew install python
+```
+
 ## Run GUI
 - Double-click or run:
   ```bash
