@@ -34,7 +34,7 @@ class YTDownloaderMaintenance:
         self.status_file = Path("maintenance_status.json")
     
     def safe_title(self, title):
-        """Bezpieczne formatowanie tytułu dla Windows console"""
+        """Bezpieczne formatowanie tytułu dla konsoli"""
         if not title:
             return "Nieznany tytuł"
         # Usuń znaki, które mogą powodować problemy z kodowaniem

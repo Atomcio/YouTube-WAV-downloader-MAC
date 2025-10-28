@@ -3,7 +3,7 @@
 ## Overview
 YTWAV is a lightweight YouTube audio downloader that converts streams to lossless WAV/PCM. It offers both a simple GUI (Tkinter) and a robust CLI, with configurable audio parameters, resilient retries against transient errors (403/429), batch processing via URL lists, and safe filename handling.
 
-- Platforms: Windows-first, cross-platform where `yt-dlp` and `ffmpeg` are available
+- Platform: macOS (requires `yt-dlp` and `ffmpeg` installed via Homebrew)
 - Core tools: `yt-dlp` for retrieval, `ffmpeg` for conversion
 - Use responsibly: comply with YouTube Terms of Service and copyright law
 
@@ -16,7 +16,7 @@ YTWAV is a lightweight YouTube audio downloader that converts streams to lossles
 - `ytdl_wav.py` — core CLI and downloader utilities
 - `ytwav_gui.py` — minimal Tkinter GUI
 - `maintenance.py` — maintenance tasks: version checks and updates for `yt-dlp`
-- `scripts/` — example runners and Windows FFmpeg installation guide
+- `macos/` — launch scripts, packaging config, and macOS guidance
 - `urls.txt` — example list of URLs for batch processing
 - `wav_out/`, `wav_out_already/` — output directories (do not commit large `.wav`)
 - `DOKUMENTACJA_APLIKACJI.md` — full documentation (PL)
@@ -42,19 +42,19 @@ YTWAV is a lightweight YouTube audio downloader that converts streams to lossles
 - Lossless WAV/PCM conversion via `ffmpeg`
 - Audio controls: `sample_rate`, `channels`, `bit_depth`
 - Batch downloads via `--list` file
-- Safe Windows-compatible filenames
+- Safe filename handling
 - Retry strategy for network/HTTP issues
 - Metadata-only mode for inspection
 
 ## CLI Usage
 Examples:
 - Single URL:
-  ```powershell
-  python ytdl_wav.py --url "https://youtu.be/…" --sr 48000 --bit_depth 16 --channels 2
+  ```bash
+  python3 ytdl_wav.py --url "https://youtu.be/…" --sr 48000 --bit_depth 16 --channels 2
   ```
 - Batch list:
-  ```powershell
-  python ytdl_wav.py --list urls.txt --out wav_out
+  ```bash
+  python3 ytdl_wav.py --list urls.txt --out wav_out
   ```
 - Common options:
   - `--url` YouTube URL
@@ -66,20 +66,19 @@ Examples:
   - `--keep_src` Keep original downloaded source file
   - `--retries` Retry attempts on failure
 
-## GUI Usage (Windows)
-- Run `YT_downloader_wav.bat` or `python ytwav_gui.py`
+## GUI Usage (macOS)
+- Run `./macos/run_gui.command` or `python3 ytwav_gui.py`
 - Paste a valid YouTube URL and click Download
 - The app validates FFmpeg and shows clear error/success messages
 
 ## Configuration & Requirements
 - Python: 3.11+
 - Dependencies: install `yt-dlp` via `requirements.txt`
-- FFmpeg: install system-wide; see `scripts/win_install_ffmpeg.md`
+- FFmpeg: install via Homebrew: `brew install ffmpeg`
 
 ## Maintenance
 - `maintenance.py` checks current `yt-dlp` version against PyPI
 - Updates `yt-dlp` via pip when needed
-- `auto_maintenance.bat` automates running maintenance and handling the exit code
 
 ## Error Handling & Logging
 - Structured logging with timestamps and clear messages
@@ -111,16 +110,16 @@ Examples:
 - Cloud sync and advanced batch GUI
 
 ## Installation (Quick)
-```powershell
+```bash
 # Install dependencies
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 
-# Windows FFmpeg guidance
-# See: scripts/win_install_ffmpeg.md
+# Install FFmpeg via Homebrew
+brew install ffmpeg
 
 # Run GUI
-python ytwav_gui.py
+python3 ytwav_gui.py
 
 # Run CLI (single URL)
-python ytdl_wav.py --url "https://youtu.be/…"
+python3 ytdl_wav.py --url "https://youtu.be/…"
 ```

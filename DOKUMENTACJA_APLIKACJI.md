@@ -24,7 +24,7 @@
 - **Inteligentny system retry**: Automatyczne obchodzenie blokad YouTube
 - **Dual interface**: GUI (Tkinter) + CLI (argparse)
 - **Auto-maintenance**: Automatyczne aktualizacje i diagnostyka
-- **Cross-platform**: Windows, macOS, Linux
+- **macOS-only**: Dedykowane dla macOS
 - **Minimalne zależności**: Tylko yt-dlp + systemowy FFmpeg
 
 ---
@@ -85,10 +85,9 @@ p_YT_downloader/
 │
 ├── ⚙️ KONFIGURACJA I SKRYPTY
 │   ├── requirements.txt         # Zależności Python (yt-dlp)
-│   ├── .gitignore              # Wzorce ignorowania Git
-│   ├── YT_downloader_wav.bat   # Launcher GUI dla Windows
-│   ├── auto_maintenance.bat    # Automatyczne utrzymanie
-│   └── urls.txt                # Przykładowe URL-e do testów
+│   ├── .gitignore               # Wzorce ignorowania Git
+│   ├── urls.txt                 # Przykładowe URL-e do testów
+│   └── macos/                   # Skrypty uruchomieniowe i pakowanie dla macOS
 │
 ├── 📂 FOLDERY WYJŚCIOWE
 │   ├── wav_out/                # Nowo pobrane pliki WAV
@@ -98,10 +97,11 @@ p_YT_downloader/
 │   └── test_fix/               # Testy napraw i poprawek
 │
 ├── 🛠️ NARZĘDZIA I SKRYPTY
-│   └── scripts/
-│       ├── run_example.bat     # Przykład użycia CLI
-│       ├── run_example.sh      # Przykład dla Linux/macOS
-│       └── win_install_ffmpeg.md # Instrukcje instalacji FFmpeg
+│   └── macos/
+│       ├── run_gui.command      # Launcher GUI dla macOS
+│       ├── run_cli.sh           # Przykłady CLI dla macOS
+│       ├── setup.py             # Konfiguracja py2app
+│       └── build_app.sh         # Budowanie .app
 │
 ├── 🧪 TESTY I DIAGNOSTYKA
 │   ├── tests/
@@ -253,9 +253,8 @@ logging.basicConfig(
 )
 ```
 
-### **5. Cross-platform Compatibility**
-- **Windows**: Batch scripts (.bat), PowerShell commands
-- **Linux/macOS**: Shell scripts (.sh), package managers
+### **5. macOS Compatibility**
+- **macOS**: Shell scripts (.sh), Homebrew package manager
 - **Python**: Pathlib dla ścieżek, shutil.which() dla sprawdzania programów
 
 ---
@@ -270,9 +269,7 @@ yt-dlp>=2023.12.30
 
 ### **Zależności systemowe**
 - **FFmpeg**: Wymagany do konwersji audio
-  - Windows: `winget install Gyan.FFmpeg` lub `choco install ffmpeg`
   - macOS: `brew install ffmpeg`
-  - Linux: `sudo apt install ffmpeg`
 
 ### **Struktura konfiguracji yt-dlp**
 ```python
@@ -384,12 +381,11 @@ System monitoruje i utrzymuje aplikację w optymalnym stanie.
    - Analiza typów błędów
    - Metryki czasowe
 
-#### **Auto-maintenance.bat**
-```batch
-# Automatyczny skrypt utrzymania
-cd /d "%~dp0"
-if exist "venv\Scripts\activate.bat" call venv\Scripts\activate.bat
-python maintenance.py
+#### **Auto-maintenance (macOS)**
+```bash
+# Automatyczny skrypt utrzymania (macOS)
+# Uruchom z katalogu projektu
+python3 maintenance.py
 ```
 
 **Zalecane uruchamianie**: Raz w tygodniu lub przed ważnymi sesjami pobierania.
@@ -705,7 +701,7 @@ def check_license():
 ✅ **Inteligentny retry system** - Obchodzenie blokad YouTube  
 ✅ **Dual interface** - GUI + CLI dla różnych użytkowników  
 ✅ **Auto-maintenance** - Automatyczne utrzymanie i aktualizacje  
-✅ **Cross-platform** - Działanie na Windows, macOS, Linux  
+✅ **macOS-only** - Działa na macOS  
 ✅ **Minimalne zależności** - Tylko yt-dlp + FFmpeg  
 ✅ **Profesjonalne logowanie** - Pełna diagnostyka i monitoring  
 ✅ **Bezpieczna architektura** - Obsługa błędów i walidacja danych  

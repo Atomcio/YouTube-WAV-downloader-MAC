@@ -19,15 +19,16 @@ Sprawdzenie czy wszystkie wymagane komponenty są zainstalowane.
 
 ### Kroki
 
-#### Windows (PowerShell/CMD)
-```cmd
+#### macOS (Terminal)
+```bash
 # Test Python
-python --version
+python3 --version
 # Oczekiwany wynik: Python 3.x.x
 
 # Test yt-dlp
-python -c "import yt_dlp; print('yt-dlp OK')"
+python3 -c "import yt_dlp; print('yt-dlp OK')"
 # Oczekiwany wynik: yt-dlp OK
+```
 
 # Test FFmpeg
 ffmpeg -version
@@ -143,10 +144,10 @@ python ../ytdl_wav.py -f "test_audio" "https://www.youtube.com/watch?v=dQw4w9WgX
 
 ### Weryfikacja pliku
 
-#### Windows
-```cmd
+#### macOS
+```bash
 # Sprawdź czy plik istnieje
-dir test_audio.wav
+ls -la test_audio.wav
 
 # Sprawdź właściwości audio (opcjonalnie)
 ffprobe test_audio.wav
@@ -289,9 +290,7 @@ pip3 install yt-dlp
 
 ### Problem: "ffmpeg: command not found"
 **Rozwiązanie**:
-- Windows: Zobacz `scripts/win_install_ffmpeg.md`
 - macOS: `brew install ffmpeg`
-- Linux: `sudo apt install ffmpeg`
 
 ### Problem: "HTTP Error 403: Forbidden"
 **Rozwiązanie**:

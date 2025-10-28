@@ -88,9 +88,7 @@ class YTWavGUI:
                 "Błąd FFmpeg",
                 "FFmpeg nie jest zainstalowany lub niedostępny w PATH.\n\n"
                 "Instrukcje instalacji:\n"
-                "• Windows: choco install ffmpeg\n"
-                "• macOS: brew install ffmpeg\n"
-                "• Linux: sudo apt install ffmpeg"
+                "• macOS: brew install ffmpeg"
             )
             self.root.destroy()
             sys.exit(1)

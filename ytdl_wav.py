@@ -72,9 +72,7 @@ class YTWavDownloader:
         if not shutil.which("ffmpeg"):
             self.logger.error("FFmpeg nie jest zainstalowany lub niedostępny w PATH")
             self.logger.error("Instrukcje instalacji:")
-            self.logger.error("  Windows: choco install ffmpeg lub zobacz scripts/win_install_ffmpeg.md")
             self.logger.error("  macOS: brew install ffmpeg")
-            self.logger.error("  Linux: sudo apt install ffmpeg (Ubuntu/Debian)")
             return False
         return True
     
