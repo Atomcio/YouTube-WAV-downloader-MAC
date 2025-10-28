@@ -55,6 +55,19 @@ python3 ytdl_wav.py --list urls.txt --out wav_out
 ### Gatekeeper note
 If macOS blocks the app, right-click the app and choose "Open" the first time.
 
+## Self-Repair
+Run the automated fix script:
+```bash
+chmod +x macos/self_repair.sh
+./macos/self_repair.sh
+```
+It will:
+- Upgrade `pip` and `yt-dlp`
+- Install/upgrade `ffmpeg` via Homebrew
+- Clear `yt-dlp` cache
+- Suggest PATH fixes for Apple Silicon
+- Verify environment and print guidance
+
 ## Troubleshooting
 - `ffmpeg: command not found` → `brew install ffmpeg`
 - `ModuleNotFoundError: yt_dlp` → `pip3 install -r requirements.txt`

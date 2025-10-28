@@ -1,55 +1,131 @@
-# YTWAV — YouTube WAV Downloader
+# YTWAV — YouTube WAV Downloader (macOS)
 
-Lekki downloader audio z YouTube do bezstratnego WAV/PCM z GUI i CLI. Wspiera konwersję przez FFmpeg, retry na błędy (403/429), batch przez plik URL-i i szczegółową konfigurację jakości.
+YTWAV is a lightweight macOS-only tool for downloading YouTube audio and converting it to lossless WAV/PCM. It offers a simple GUI (Tkinter) and a flexible CLI, uses `yt-dlp` for retrieval, and `ffmpeg` for audio conversion.
 
-English summary: Lightweight YouTube audio downloader to lossless WAV/PCM with GUI and CLI, FFmpeg-based conversion, resilient retries, batch via URL list, and detailed audio settings.
+- macOS-only
+- GUI (Tkinter) + CLI
+- Minimal dependencies: `yt-dlp` and system `ffmpeg`
 
-## Funkcje
-- Pobieranie audio i konwersja do WAV/PCM (FFmpeg)
-- Retry z różnymi User-Agent (radzi sobie z 403/429)
-- GUI w Tkinter + pełny CLI
-- Lista URL-i (batch) i metadane bez pobierania
-- Konfigurowalne: `sample_rate`, `channels`, `bit_depth`
+## Features
+- Download audio and convert to WAV/PCM (via FFmpeg)
+- Resilient retries to handle errors (e.g., 403/429)
+- Batch mode via URL list file
+- Configurable audio settings: sample rate, channels, bit depth
+- Safe filename handling
+- Optional maintenance/diagnostics script
 
-## Wymagania
-- Python 3.11+
-- `yt-dlp` (z `requirements.txt`)
-- FFmpeg (zainstaluj przez Homebrew: `brew install ffmpeg`)
+## Requirements
+- `python3` (3.11+ recommended)
+- Homebrew
+- `ffmpeg` installed via Homebrew
 
-## Szybki start
-- GUI (macOS): uruchom `./macos/run_gui.command` lub `python3 ytwav_gui.py`
-- CLI (pojedynczy URL):
+## Installation
+- Clone the repository:
   ```bash
-  python3 ytdl_wav.py --url "https://youtu.be/…" --sr 48000 --bit_depth 16 --channels 2
+  git clone https://github.com/Atomcio/YouTube-WAV-downloader-MAC.git
+  cd YouTube-WAV-downloader-MAC
   ```
-- CLI (lista):
+- Install Python dependencies:
   ```bash
-  python3 ytdl_wav.py --list urls.txt --out wav_out
+  pip3 install -r requirements.txt
+  ```
+- Install FFmpeg:
+  ```bash
+  brew install ffmpeg
+  ```
+- Make macOS launch scripts executable (optional but convenient):
+  ```bash
+  chmod +x macos/run_gui.command macos/run_cli.sh
   ```
 
-## Struktura
-- Główne skrypty: `ytdl_wav.py`, `ytwav_gui.py`
-- Utrzymanie: `maintenance.py`
-- macOS: `macos/run_gui.command`, `macos/run_cli.sh`
-- Przykłady: `urls.txt`
-- Wyjścia audio: `wav_out/`, `wav_out_already/`
+## Quick Start (GUI)
+- Launch the GUI:
+  ```bash
+  ./macos/run_gui.command
+  ```
+- Alternatively:
+  ```bash
+  python3 ytwav_gui.py
+  ```
 
-## Dokumentacja
-Pełny opis architektury, funkcji i decyzji: `DOKUMENTACJA_APLIKACJI.md`.
+## Quick Start (CLI)
+- Single URL:
+  ```bash
+  ./macos/run_cli.sh "https://youtube.com/watch?v=VIDEO_ID"
+  ```
+- Using Python directly:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID"
+  ```
 
-## Uwaga dot. repozytorium
-Nie commituj ciężkich plików `.wav`. Dodaj do `.gitignore`:
-```
-wav_out/
-wav_out_already/
-interkontinentalbajern/
-test_cli/*.wav
-test_fix/*.wav
-```
-Alternatywnie użyj Git LFS dla dużych plików.
+## CLI Options
+The CLI exposes fine-grained control over output quality and behavior:
+- `--list <file>`: Path to a text file with one URL per line (lines starting with `#` are treated as comments)
+- `-o, --out <dir>`: Output directory (default: `wav_out`)
+- `--sr <int>`: Sample rate (default: `48000`)
+- `--ch <1|2>`: Channels: `1` mono or `2` stereo (default: `2`)
+- `--bit <16|24>`: WAV bit depth (default: `16`)
+- `--keep-src`: Keep the original downloaded audio file (e.g., `.m4a`)
+- `--retries <int>`: Retry count for errors (default: `5`)
 
-## Licencja
-Sugerowana licencja: MIT (dodaj plik `LICENSE`).
+### Examples
+- Single video to a custom directory, 44.1 kHz mono, 24-bit:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" -o my_wavs --sr 44100 --ch 1 --bit 24
+  ```
+- Batch from file:
+  ```bash
+  python3 ytdl_wav.py --list urls.txt --out batch_wavs
+  ```
+- Keep source file:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" --keep-src
+  ```
 
-## Zastrzeżenia
-Korzystaj zgodnie z regulaminem YouTube i prawem autorskim. Narzędzie przeznaczone do użytku zgodnego z licencjami treści.
+## Project Structure
+- Main scripts: `ytdl_wav.py`, `ytwav_gui.py`
+- Maintenance: `maintenance.py`
+- macOS helpers: `macos/run_gui.command`, `macos/run_cli.sh`, `macos/build_app.sh`, `macos/setup.py`, `macos/README_macOS.md`
+- Examples: `urls.txt`
+- Outputs: `wav_out/`, `wav_out_already/`
+
+## Maintenance & Diagnostics
+- Run maintenance checks and logging:
+  ```bash
+  python3 maintenance.py
+  ```
+- This verifies `yt-dlp` and `ffmpeg`, can run a test download, and logs into `maintenance.log`.
+
+## Troubleshooting
+- `ffmpeg: command not found`
+  - Install FFmpeg: `brew install ffmpeg`
+  - Verify PATH: `which ffmpeg`
+- Permission denied when running scripts
+  - Grant execute permission: `chmod +x macos/run_gui.command macos/run_cli.sh`
+- Update `yt-dlp` if you see HTTP or extraction issues:
+  ```bash
+  pip3 install --upgrade yt-dlp
+  ```
+
+## Self-Repair (macOS)
+- Run automated fix script:
+  ```bash
+  chmod +x macos/self_repair.sh
+  ./macos/self_repair.sh
+  ```
+- What it does:
+  - Upgrades `pip` and `yt-dlp`
+  - Installs/upgrades `ffmpeg` via Homebrew
+  - Clears `yt-dlp` cache
+  - Suggests PATH fixes for Apple Silicon
+  - Verifies environment and prints guidance
+- If issues persist, run diagnostics:
+  ```bash
+  python3 maintenance.py
+  ```
+
+## License
+Recommended license: MIT (add a `LICENSE` file if desired).
+
+## Disclaimer
+Use in accordance with YouTube’s Terms of Service and applicable copyright laws. This tool is intended for lawful, licensed content usage.
