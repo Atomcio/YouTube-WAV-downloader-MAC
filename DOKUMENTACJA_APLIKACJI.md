@@ -712,3 +712,222 @@ Aplikacja jest gotowa do użycia produkcyjnego i może być łatwo rozszerzona o
 
 *Dokumentacja wygenerowana automatycznie na podstawie analizy kodu źródłowego.*  
 *Ostatnia aktualizacja: 2024*
+
+## ENGLISH GUIDE — macOS
+
+YTWAV is a macOS-only tool to download YouTube audio and convert it to lossless WAV/PCM. It provides a simple GUI (Tkinter) and a flexible CLI, using `yt-dlp` to fetch media and `ffmpeg` for conversion.
+
+- macOS-only
+- GUI (Tkinter) + CLI
+- Minimal dependencies: `yt-dlp` and system `ffmpeg`
+
+### Features
+- Download audio and convert to WAV/PCM (via FFmpeg)
+- Resilient retries to handle HTTP errors (403/429)
+- Batch mode via URL list file
+- Configurable audio settings: sample rate, channels, bit depth
+- Safe filename handling
+- Optional maintenance/diagnostics script
+
+### Requirements
+- `python3` (3.11+ recommended)
+- Homebrew
+- `ffmpeg` installed via Homebrew
+
+### Installation
+- Clone the repository:
+  ```bash
+  git clone https://github.com/Atomcio/YouTube-WAV-downloader-MAC.git
+  cd YouTube-WAV-downloader-MAC
+  ```
+- Install Python dependencies:
+  ```bash
+  pip3 install -r requirements.txt
+  ```
+- Install FFmpeg:
+  ```bash
+  brew install ffmpeg
+  ```
+- Make macOS launch scripts executable (optional):
+  ```bash
+  chmod +x macos/run_gui.command macos/run_cli.sh
+  ```
+
+### Quick Start (GUI)
+- Launch the GUI:
+  ```bash
+  ./macos/run_gui.command
+  ```
+- Alternatively:
+  ```bash
+  python3 ytwav_gui.py
+  ```
+
+### Quick Start (CLI)
+- Single URL:
+  ```bash
+  ./macos/run_cli.sh "https://youtube.com/watch?v=VIDEO_ID"
+  ```
+- Using Python directly:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID"
+  ```
+
+### CLI Options
+The CLI exposes control over output quality and behavior:
+- `--list <file>`: Path to a text file with one URL per line (lines starting with `#` are comments)
+- `-o, --out <dir>`: Output directory (default: `wav_out`)
+- `--sr <int>`: Sample rate (default: `48000`)
+- `--ch <1|2>`: Channels: `1` mono or `2` stereo (default: `2`)
+- `--bit <16|24>`: WAV bit depth (default: `16`)
+- `--keep-src`: Keep the original downloaded audio file (e.g., `.m4a`)
+- `--retries <int>`: Retry count for errors (default: `5`)
+
+Examples:
+- Single video to a custom directory, 44.1 kHz mono, 24-bit:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" -o my_wavs --sr 44100 --ch 1 --bit 24
+  ```
+- Batch from file:
+  ```bash
+  python3 ytdl_wav.py --list urls.txt --out batch_wavs
+  ```
+- Keep source file:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" --keep-src
+  ```
+
+### Self-Repair (macOS)
+To automatically fix common environment issues:
+```bash
+chmod +x macos/self_repair.sh
+./macos/self_repair.sh
+```
+What it does:
+- Upgrades `pip` and `yt-dlp`
+- Installs/upgrades `ffmpeg` via Homebrew
+- Clears `yt-dlp` cache
+- Suggests PATH fixes for Apple Silicon
+- Verifies environment and prints guidance
+
+If issues persist, run diagnostics:
+```bash
+python3 maintenance.py
+```
+
+### Troubleshooting
+- `ffmpeg: command not found`
+  - Install FFmpeg: `brew install ffmpeg`
+  - Verify PATH: `which ffmpeg`
+- Permission denied when running scripts
+  - Grant execute permission: `chmod +x macos/run_gui.command macos/run_cli.sh`
+- Update `yt-dlp` if you see HTTP or extraction issues:
+  ```bash
+  pip3 install --upgrade yt-dlp
+  ```
+
+### CLI Options
+The CLI exposes control over output quality and behavior:
+- `--list <file>`: Path to a text file with one URL per line (lines starting with `#` are comments)
+- `-o, --out <dir>`: Output directory (default: `wav_out`)
+- `--sr <int>`: Sample rate (default: `48000`)
+- `--ch <1|2>`: Channels: `1` mono or `2` stereo (default: `2`)
+- `--bit <16|24>`: WAV bit depth (default: `16`)
+- `--keep-src`: Keep the original downloaded audio file (e.g., `.m4a`)
+- `--retries <int>`: Retry count for errors (default: `5`)
+
+Examples:
+- Single video to a custom directory, 44.1 kHz mono, 24-bit:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" -o my_wavs --sr 44100 --ch 1 --bit 24
+  ```
+- Batch from file:
+  ```bash
+  python3 ytdl_wav.py --list urls.txt --out batch_wavs
+  ```
+- Keep source file:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" --keep-src
+  ```
+
+### Self-Repair (macOS)
+To automatically fix common environment issues:
+```bash
+chmod +x macos/self_repair.sh
+./macos/self_repair.sh
+```
+What it does:
+- Upgrades `pip` and `yt-dlp`
+- Installs/upgrades `ffmpeg` via Homebrew
+- Clears `yt-dlp` cache
+- Suggests PATH fixes for Apple Silicon
+- Verifies environment and prints guidance
+
+If issues persist, run diagnostics:
+```bash
+python3 maintenance.py
+```
+
+### Troubleshooting
+- `ffmpeg: command not found`
+  - Install FFmpeg: `brew install ffmpeg`
+  - Verify PATH: `which ffmpeg`
+- Permission denied when running scripts
+  - Grant execute permission: `chmod +x macos/run_gui.command macos/run_cli.sh`
+- Update `yt-dlp` if you see HTTP or extraction issues:
+  ```bash
+  pip3 install --upgrade yt-dlp
+  ```
+
+### CLI Options
+The CLI exposes control over output quality and behavior:
+- `--list <file>`: Path to a text file with one URL per line (lines starting with `#` are comments)
+- `-o, --out <dir>`: Output directory (default: `wav_out`)
+- `--sr <int>`: Sample rate (default: `48000`)
+- `--ch <1|2>`: Channels: `1` mono or `2` stereo (default: `2`)
+- `--bit <16|24>`: WAV bit depth (default: `16`)
+- `--keep-src`: Keep the original downloaded audio file (e.g., `.m4a`)
+- `--retries <int>`: Retry count for errors (default: `5`)
+
+Examples:
+- Single video to a custom directory, 44.1 kHz mono, 24-bit:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" -o my_wavs --sr 44100 --ch 1 --bit 24
+  ```
+- Batch from file:
+  ```bash
+  python3 ytdl_wav.py --list urls.txt --out batch_wavs
+  ```
+- Keep source file:
+  ```bash
+  python3 ytdl_wav.py "https://youtube.com/watch?v=VIDEO_ID" --keep-src
+  ```
+
+### Self-Repair (macOS)
+To automatically fix common environment issues:
+```bash
+chmod +x macos/self_repair.sh
+./macos/self_repair.sh
+```
+What it does:
+- Upgrades `pip` and `yt-dlp`
+- Installs/upgrades `ffmpeg` via Homebrew
+- Clears `yt-dlp` cache
+- Suggests PATH fixes for Apple Silicon
+- Verifies environment and prints guidance
+
+If issues persist, run diagnostics:
+```bash
+python3 maintenance.py
+```
+
+### Troubleshooting
+- `ffmpeg: command not found`
+  - Install FFmpeg: `brew install ffmpeg`
+  - Verify PATH: `which ffmpeg`
+- Permission denied when running scripts
+  - Grant execute permission: `chmod +x macos/run_gui.command macos/run_cli.sh`
+- Update `yt-dlp` if you see HTTP or extraction issues:
+  ```bash
+  pip3 install --upgrade yt-dlp
+  ```
